@@ -2,7 +2,7 @@ package rifu.demo.EngQiz.service;
 
 import java.util.List;
 
-public class QuestionResponse {
+public class QuestionDTO {
     private String title;
     private List<String> answers;
 
