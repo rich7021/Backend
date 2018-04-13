@@ -23,6 +23,8 @@ subprojects {
     ext {
         //if use '', it cannot use variables, when in dependencies
         springBootVersion = '1.5.10.RELEASE'
+        springDataVersion = '2.0.6.RELEASE'
+        h2DatabaseVersion = '1.4.197'
     }
 }
 

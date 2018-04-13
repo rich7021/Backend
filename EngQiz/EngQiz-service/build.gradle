@@ -4,6 +4,8 @@ dependencies {
     compile project(":EngQiz-core")
 
     compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+    compile "org.springframework.boot:spring-boot-devtools:$springBootVersion"
+    compile "com.h2database:h2:$h2DatabaseVersion"
 
     testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
 }
