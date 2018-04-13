@@ -1,2 +1,4 @@
 rootProject.name = 'EngQiz'
+include 'EngQiz-core'
+include 'EngQiz-service'
 
