@@ -1,5 +1,8 @@
 package rifu.demo.engqiz.core.dto;
 
+import org.springframework.beans.BeanUtils;
+import rifu.demo.engqiz.core.entity.Question;
+
 import java.util.List;
 
 public class QuestionDTO {
@@ -20,5 +23,11 @@ public class QuestionDTO {
 
     public void setAnswers(List<String> answers) {
         this.answers = answers;
+    }
+
+    public static QuestionDTO toDTO(Question pojo) {
+        QuestionDTO dto = new QuestionDTO();
+        BeanUtils.copyProperties(pojo, dto);
+        return dto;
     }
 }
