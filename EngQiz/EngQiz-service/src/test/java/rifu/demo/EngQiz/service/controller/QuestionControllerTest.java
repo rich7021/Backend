@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
-import rifu.demo.EngQiz.service.QuestionDTO;
+import rifu.demo.EngQiz.core.DTO.QuestionDTO;
 
 import java.util.Arrays;
 
