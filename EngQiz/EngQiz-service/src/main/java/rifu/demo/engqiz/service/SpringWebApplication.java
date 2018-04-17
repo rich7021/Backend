@@ -7,7 +7,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication // same as @Configuration @EnableAutoConfiguration @ComponentScan
-@EnableJpaRepositories
+@EnableJpaRepositories(
+        basePackages = {
+                "rifu.demo.engqiz.core.dao"
+        }
+)
 @EntityScan("rifu.demo.engqiz.core.entity")
 @ComponentScan({"rifu.demo.engqiz.core.dao", "rifu.demo.engqiz.service.*"})
 public class SpringWebApplication {
