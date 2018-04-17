@@ -1,10 +1,10 @@
-package rifu.demo.EngQiz1.service.controller;
+package rifu.demo.engqiz.service.controller;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
-import rifu.demo.EngQiz1.core.DTO.QuestionDTO;
+import rifu.demo.engqiz.core.DTO.QuestionDTO;
 
 import java.util.Arrays;
 
