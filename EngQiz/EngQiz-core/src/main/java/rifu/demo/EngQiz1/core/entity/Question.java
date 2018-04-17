@@ -1,4 +1,4 @@
-package rifu.demo.engqiz.core.entity;
+package rifu.demo.EngQiz1.core.entity;
 
 
 import javax.persistence.*;

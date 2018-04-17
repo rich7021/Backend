@@ -1,4 +1,4 @@
-package rifu.demo.engqiz.service;
+package rifu.demo.EngQiz1.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,8 +1,8 @@
-package rifu.demo.engqiz.service.controller;
+package rifu.demo.EngQiz1.service.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import rifu.demo.engqiz.core.dto.QuestionDTO;
+import rifu.demo.EngQiz1.core.DTO.QuestionDTO;
 
 @RestController
 public class QuestionController {
