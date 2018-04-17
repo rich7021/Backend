@@ -1,4 +1,4 @@
-package rifu.demo.engqiz.core.dto1;
+package rifu.demo.engqiz.core.dto;
 
 import java.util.List;
 
