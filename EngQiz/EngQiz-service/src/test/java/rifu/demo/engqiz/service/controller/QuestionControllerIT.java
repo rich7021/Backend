@@ -11,20 +11,23 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import rifu.demo.engqiz.service.TestApplicationConfig;
+import rifu.demo.engqiz.service.ITApplicationConfig;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * If @WebAppConfiguration not annotated here, the WebApplicationContext will not load beans and context.
+ * @implNote Integration Test Example File
+ * This is an integration test example. The @WebAppConfiguration will load all application needs beans and
+ * configurations based on what we set in @ContextConfiguration. Then, we get context via autowire
+ * WebApplicationContext and make it build into mockMvc in the setUp method. Consequently, when we use mockMvc
+ * .perform(), it will follow the context to go through all the application procedure.
  */
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {TestApplicationConfig.class})
+@ContextConfiguration(classes = {ITApplicationConfig.class})
 @WebAppConfiguration
 public class QuestionControllerIT {
     @Autowired
@@ -39,8 +42,10 @@ public class QuestionControllerIT {
 
     @Test
     public void testFindAllQuestion() throws Exception {
-        MvcResult result = this.mockMvc.perform(get("/questions")).andDo(print()).andExpect(status().isOk()).andExpect(jsonPath("$.*", hasSize(2))).andReturn();
-        assertEquals("", "");
+        MvcResult result = this.mockMvc.perform(get("/questions"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.*", hasSize(2)))
+                .andReturn();
     }
-
 }

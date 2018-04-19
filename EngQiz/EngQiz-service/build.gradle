@@ -6,6 +6,7 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
     compile "org.springframework.boot:spring-boot-devtools:$springBootVersion"
     compile "com.h2database:h2:$h2DatabaseVersion"
+    compile "org.apache.commons:commons-lang3:3.7"
 
     testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
 }
