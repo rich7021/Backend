@@ -26,5 +26,18 @@ subprojects {
         springDataVersion = '2.0.6.RELEASE'
         h2DatabaseVersion = '1.4.197'
     }
+
+    test {
+        useJUnit {
+            exclude '**/*IT.class'
+        }
+        reports.html.enabled = false
+    }
+
+    task doITs(type: Test) {
+        useJUnit {
+            include '**/*IT.class'
+        }
+    }
 }
 
