@@ -56,8 +56,8 @@ public class QuestionControllerIT {
     public void testInsert() throws Exception {
         List<String> createQ1Answers = Arrays.asList("answer1", "answer2", "answer3");
         List<String> createQ2Answers = Arrays.asList("answer1_2", "answer2_2", "answer3_2");
-        QuestionDTO createQ1 = createQuestionDTOStub(null, "Q1", createQ1Answers);
-        QuestionDTO createQ2 = createQuestionDTOStub(null, "Q2", createQ2Answers);
+        QuestionDTO createQ1 = createQuestionDTOStub("Q1", createQ1Answers);
+        QuestionDTO createQ2 = createQuestionDTOStub("Q2", createQ2Answers);
         List<QuestionDTO> requests = Arrays.asList(createQ1, createQ2);
 
         mockMvc.perform((post(rootUrl).contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(requests))))
@@ -78,9 +78,8 @@ public class QuestionControllerIT {
                 .andReturn();
     }
 
-    private QuestionDTO createQuestionDTOStub(Long id, String title, List<String> answers) {
+    private QuestionDTO createQuestionDTOStub(String title, List<String> answers) {
         QuestionDTO dto = new QuestionDTO();
-        dto.setId(id);
         dto.setTitle(title);
         dto.setAnswers(answers);
         return dto;

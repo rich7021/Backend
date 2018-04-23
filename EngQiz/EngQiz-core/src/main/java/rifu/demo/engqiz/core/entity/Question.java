@@ -1,6 +1,8 @@
 package rifu.demo.engqiz.core.entity;
 
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -8,9 +10,13 @@ import java.util.List;
 @Table(name = "QUESTION")
 public class Question {
     @Id
-    @GeneratedValue
-    @Column(name = "ID")
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "ID", nullable = false, updatable = false)
+    private String id;
 
     @Column(name = "TITLE")
     private String title;
@@ -23,11 +29,11 @@ public class Question {
     @Column(name = "ANSWER")
     private List<String> answers;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

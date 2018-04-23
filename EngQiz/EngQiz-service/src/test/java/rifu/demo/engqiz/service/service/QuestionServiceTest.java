@@ -11,6 +11,7 @@ import rifu.demo.engqiz.core.entity.Question;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
@@ -30,25 +31,27 @@ public class QuestionServiceTest {
 
     @Test
     public void testInsert() {
+        String id1 = UUID.randomUUID().toString();
+        String id2 = UUID.randomUUID().toString();
         List<String> q1_answers = Arrays.asList("answer1", "answer2", "answer3");
         List<String> q2_answers = Arrays.asList("answer1_2", "answer2_2", "answer3_2");
-        Question stub1 = createQuestionStub(3L, "Q1", q1_answers);
-        Question stub2 = createQuestionStub(4L, "Q2", q2_answers);
+        Question stub1 = createQuestionStub(id1, "Q1", q1_answers);
+        Question stub2 = createQuestionStub(id2, "Q2", q2_answers);
         List<Question> entities = Arrays.asList(stub1, stub2);
         given(questionDAO.save(anyCollection())).willReturn(entities);
 
         List<QuestionDTO> results = questionService.insert(entities);
         assertEquals(2, results.size());
-        assert (results.stream().anyMatch(result -> result.getId() == 3L));
-        assert (results.stream().anyMatch(result -> result.getId() == 4L));
+        assert (results.stream().anyMatch(result -> result.getId().equals(id1)));
+        assert (results.stream().anyMatch(result -> result.getId().equals(id2)));
     }
 
     @Test
     public void testFindAll() {
         List<String> q1_answers = Arrays.asList("answer1", "answer2", "answer3");
         List<String> q2_answers = Arrays.asList("answer1_2", "answer2_2", "answer3_2");
-        Question stub1 = createQuestionStub(1L, "Q1", q1_answers);
-        Question stub2 = createQuestionStub(2L, "Q2", q2_answers);
+        Question stub1 = createQuestionStub(UUID.randomUUID().toString(), "Q1", q1_answers);
+        Question stub2 = createQuestionStub(UUID.randomUUID().toString(), "Q2", q2_answers);
 
         given(questionDAO.findAll()).willReturn(Arrays.asList(stub1, stub2));
 
@@ -56,7 +59,7 @@ public class QuestionServiceTest {
         assertEquals(2, dtos.size());
     }
 
-    private Question createQuestionStub(Long id, String title, List<String> answers) {
+    private Question createQuestionStub(String id, String title, List<String> answers) {
         Question question = new Question();
         question.setId(id);
         question.setTitle(title);
@@ -64,7 +67,7 @@ public class QuestionServiceTest {
         return question;
     }
 
-    private QuestionDTO createQuestionDTOStub(Long id, String title, List<String> answers) {
+    private QuestionDTO createQuestionDTOStub(String id, String title, List<String> answers) {
         QuestionDTO dto = new QuestionDTO();
         dto.setId(id);
         dto.setTitle(title);
