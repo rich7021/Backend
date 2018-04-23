@@ -33,10 +33,10 @@ public class QuestionServiceTest {
     public void testInsert() {
         String id1 = UUID.randomUUID().toString();
         String id2 = UUID.randomUUID().toString();
-        List<String> q1_answers = Arrays.asList("answer1", "answer2", "answer3");
-        List<String> q2_answers = Arrays.asList("answer1_2", "answer2_2", "answer3_2");
-        Question stub1 = createQuestionStub(id1, "Q1", q1_answers);
-        Question stub2 = createQuestionStub(id2, "Q2", q2_answers);
+        List<String> q1_options = Arrays.asList("option1", "option2", "option3");
+        List<String> q2_options = Arrays.asList("option1_2", "option2_2", "option3_2");
+        Question stub1 = createQuestionStub(id1, "Q1", q1_options);
+        Question stub2 = createQuestionStub(id2, "Q2", q2_options);
         List<Question> entities = Arrays.asList(stub1, stub2);
         given(questionDAO.save(anyCollection())).willReturn(entities);
 
@@ -48,10 +48,10 @@ public class QuestionServiceTest {
 
     @Test
     public void testFindAll() {
-        List<String> q1_answers = Arrays.asList("answer1", "answer2", "answer3");
-        List<String> q2_answers = Arrays.asList("answer1_2", "answer2_2", "answer3_2");
-        Question stub1 = createQuestionStub(UUID.randomUUID().toString(), "Q1", q1_answers);
-        Question stub2 = createQuestionStub(UUID.randomUUID().toString(), "Q2", q2_answers);
+        List<String> q1_options = Arrays.asList("option1", "option2", "option3");
+        List<String> q2_options = Arrays.asList("option1_2", "option2_2", "option3_2");
+        Question stub1 = createQuestionStub(UUID.randomUUID().toString(), "Q1", q1_options);
+        Question stub2 = createQuestionStub(UUID.randomUUID().toString(), "Q2", q2_options);
 
         given(questionDAO.findAll()).willReturn(Arrays.asList(stub1, stub2));
 
@@ -59,19 +59,19 @@ public class QuestionServiceTest {
         assertEquals(2, dtos.size());
     }
 
-    private Question createQuestionStub(String id, String title, List<String> answers) {
+    private Question createQuestionStub(String id, String title, List<String> options) {
         Question question = new Question();
         question.setId(id);
         question.setTitle(title);
-        question.setAnswers(answers);
+        question.setOptions(options);
         return question;
     }
 
-    private QuestionDTO createQuestionDTOStub(String id, String title, List<String> answers) {
+    private QuestionDTO createQuestionDTOStub(String id, String title, List<String> options) {
         QuestionDTO dto = new QuestionDTO();
         dto.setId(id);
         dto.setTitle(title);
-        dto.setAnswers(answers);
+        dto.setOptions(options);
         return dto;
     }
 }

@@ -23,11 +23,11 @@ public class Question {
 
     @ElementCollection()
     @CollectionTable(
-            name = "QUESTION_ANSWERS",
+            name = "QUESTION_OPTIONS",
             joinColumns = @JoinColumn(name = "ID", referencedColumnName = "ID")
     )
-    @Column(name = "ANSWER")
-    private List<String> answers;
+    @Column(name = "OPTION_ITEM")
+    private List<String> options;
 
     public String getId() {
         return id;
@@ -45,11 +45,11 @@ public class Question {
         this.title = title;
     }
 
-    public List<String> getAnswers() {
-        return answers;
+    public List<String> getOptions() {
+        return options;
     }
 
-    public void setAnswers(List<String> answers) {
-        this.answers = answers;
+    public void setOptions(List<String> options) {
+        this.options = options;
     }
 }

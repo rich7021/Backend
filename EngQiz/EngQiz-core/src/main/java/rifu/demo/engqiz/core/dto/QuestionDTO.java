@@ -8,7 +8,7 @@ import java.util.List;
 public class QuestionDTO {
     private String id;
     private String title;
-    private List<String> answers;
+    private List<String> options;
 
     public String getId() {
         return id;
@@ -26,12 +26,12 @@ public class QuestionDTO {
         this.title = title;
     }
 
-    public List<String> getAnswers() {
-        return answers;
+    public List<String> getOptions() {
+        return options;
     }
 
-    public void setAnswers(List<String> answers) {
-        this.answers = answers;
+    public void setOptions(List<String> options) {
+        this.options = options;
     }
 
     public static QuestionDTO toDTO(Question pojo) {
