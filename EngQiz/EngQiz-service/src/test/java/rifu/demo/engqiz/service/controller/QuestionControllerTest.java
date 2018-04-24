@@ -57,46 +57,61 @@ public class QuestionControllerTest {
     public void testInsert() throws Exception {
         List<String> mockQ1Options = Arrays.asList("option1", "option2", "option3");
         List<String> mockQ2Options = Arrays.asList("option1_2", "option2_2", "option3_2");
-        QuestionDTO mockQuestion1 = createQuestionDTOStub(UUID.randomUUID().toString(), "Q1", mockQ1Options);
-        QuestionDTO mockQuestion2 = createQuestionDTOStub(UUID.randomUUID().toString(), "Q2", mockQ2Options);
+        List<String> mockQ1Answers = Arrays.asList("option1");
+        List<String> mockQ2Answers = Arrays.asList("option1_2", "option2_2");
+        QuestionDTO mockQuestion1 = generateQuestionDTOStub(UUID.randomUUID().toString(), "Q1", mockQ1Options, mockQ1Answers);
+        QuestionDTO mockQuestion2 = generateQuestionDTOStub(UUID.randomUUID().toString(), "Q2", mockQ2Options, mockQ2Answers);
         List<QuestionDTO> mockResponse = Arrays.asList(mockQuestion1, mockQuestion2);
         given(questionService.insert((List<Question>) anyCollection())).willReturn(mockResponse);
 
         List<String> createQ1Options = Arrays.asList("option1", "option2", "option3");
         List<String> createQ2Options = Arrays.asList("option1_2", "option2_2", "option3_2");
-        QuestionDTO createQ1 = createQuestionDTOStub(null, "Q1", createQ1Options);
-        QuestionDTO createQ2 = createQuestionDTOStub(null, "Q2", createQ2Options);
+        List<String> createQ1Answers = Arrays.asList("option1");
+        List<String> createQ2Answers = Arrays.asList("option1_2", "option2_2");
+        QuestionDTO createQ1 = generateQuestionDTOStub(null, "Q1", createQ1Options, createQ1Answers);
+        QuestionDTO createQ2 = generateQuestionDTOStub(null, "Q2", createQ2Options, createQ2Answers);
         List<QuestionDTO> requests = Arrays.asList(createQ1, createQ2);
 
-        mockMvc.perform(post("/questions").content(mapper.writeValueAsString(requests)).contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(post("/questions").param("withAnswers", "true").content(mapper.writeValueAsString(requests))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
 
     @Test
-    public void testFindAll() throws Exception {
+    public void testListAll() throws Exception {
+        boolean withAnswers = true;
         List<String> q1_options = Arrays.asList("option1", "option2", "option3");
         List<String> q2_options = Arrays.asList("option1_2", "option2_2", "option3_2");
-        QuestionDTO stub1 = createQuestionDTOStub(UUID.randomUUID().toString(), "Q1", q1_options);
-        QuestionDTO stub2 = createQuestionDTOStub(UUID.randomUUID().toString(), "Q2", q2_options);
+        List<String> mockQ1Answers = Arrays.asList("option1");
+        List<String> mockQ2Answers = Arrays.asList("option1_2", "option2_2");
+        QuestionDTO stub1 = generateQuestionDTOStub(UUID.randomUUID().toString(), "Q1", q1_options, mockQ1Answers);
+        QuestionDTO stub2 = generateQuestionDTOStub(UUID.randomUUID().toString(), "Q2", q2_options, mockQ2Answers);
 
-        given(questionService.listAll()).willReturn(Arrays.asList(stub1, stub2));
+        given(questionService.listAll(withAnswers)).willReturn(Arrays.asList(stub1, stub2));
 
-        mockMvc.perform(get("/questions"))
+        mockMvc.perform(get("/questions").param("withAnswers", "true"))
                 .andExpect(status().isOk()).andDo(print())
-                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$.*", hasSize(2)))
                 .andExpect(jsonPath("$[0].title", is("Q1")))
                 .andExpect(jsonPath("$[0].options[0]", is("option1")))
                 .andExpect(jsonPath("$[0].options[1]", is("option2")))
                 .andExpect(jsonPath("$[0].options[2]", is("option3")))
-                .andExpect(jsonPath("$[1].title", is("Q2")));
+                .andExpect(jsonPath("$[0].answers[0]", is("option1")))
+                .andExpect(jsonPath("$[1].title", is("Q2")))
+                .andExpect(jsonPath("$[1].options[0]", is("option1_2")))
+                .andExpect(jsonPath("$[1].options[1]", is("option2_2")))
+                .andExpect(jsonPath("$[1].options[2]", is("option3_2")))
+                .andExpect(jsonPath("$[1].answers[0]", is("option1_2")))
+                .andExpect(jsonPath("$[1].answers[1]", is("option2_2")));
     }
 
-    private QuestionDTO createQuestionDTOStub(String id, String title, List<String> options) {
+    private QuestionDTO generateQuestionDTOStub(String id, String title, List<String> options, List<String> answers) {
         QuestionDTO dto = new QuestionDTO();
         dto.setId(id);
         dto.setTitle(title);
         dto.setOptions(options);
+        dto.setAnswers(answers);
         return dto;
     }
 }

@@ -9,6 +9,7 @@ public class QuestionDTO {
     private String id;
     private String title;
     private List<String> options;
+    private List<String> answers;
 
     public String getId() {
         return id;
@@ -34,9 +35,20 @@ public class QuestionDTO {
         this.options = options;
     }
 
-    public static QuestionDTO toDTO(Question pojo) {
+    public List<String> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<String> answers) {
+        this.answers = answers;
+    }
+
+    public static QuestionDTO toDTO(Question pojo, boolean showAnswers) {
         QuestionDTO dto = new QuestionDTO();
         BeanUtils.copyProperties(pojo, dto);
+        if (showAnswers == false) {
+            dto.setAnswers(null);
+        }
         return dto;
     }
 }

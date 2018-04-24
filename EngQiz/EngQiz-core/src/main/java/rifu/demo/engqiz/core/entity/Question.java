@@ -29,6 +29,14 @@ public class Question {
     @Column(name = "OPTION_ITEM")
     private List<String> options;
 
+    @ElementCollection()
+    @CollectionTable(
+            name = "QUESTION_ANSWERS",
+            joinColumns = @JoinColumn(name = "ID", referencedColumnName = "ID")
+    )
+    @Column(name = "ANSWER_ITEM")
+    private List<String> answers;
+
     public String getId() {
         return id;
     }
@@ -51,5 +59,13 @@ public class Question {
 
     public void setOptions(List<String> options) {
         this.options = options;
+    }
+
+    public List<String> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<String> answers) {
+        this.answers = answers;
     }
 }

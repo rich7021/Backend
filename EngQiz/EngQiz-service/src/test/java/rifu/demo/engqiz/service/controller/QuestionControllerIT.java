@@ -19,6 +19,7 @@ import rifu.demo.engqiz.service.ITApplicationConfig;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -56,32 +57,37 @@ public class QuestionControllerIT {
     public void testInsert() throws Exception {
         List<String> createQ1Options = Arrays.asList("option1", "option2", "option3");
         List<String> createQ2Options = Arrays.asList("option1_2", "option2_2", "option3_2");
-        QuestionDTO createQ1 = createQuestionDTOStub("Q1", createQ1Options);
-        QuestionDTO createQ2 = createQuestionDTOStub("Q2", createQ2Options);
+        List<String> createQ1Answers = Arrays.asList("option1");
+        List<String> createQ2Answers = Arrays.asList("option1_2", "option2_2");
+        QuestionDTO createQ1 = createQuestionDTOStub("Q1", createQ1Options, createQ1Answers);
+        QuestionDTO createQ2 = createQuestionDTOStub("Q2", createQ2Options, createQ2Answers);
         List<QuestionDTO> requests = Arrays.asList(createQ1, createQ2);
 
         mockMvc.perform((post(rootUrl).contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(requests))))
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
-        MvcResult result = mockMvc.perform(get(rootUrl))
+        MvcResult result = mockMvc.perform(get(rootUrl).param("withAnswers", "true"))
                 .andExpect(jsonPath("$.*", hasSize(4)))
+                .andExpect(jsonPath("$[0]", hasKey("answers")))
                 .andReturn();
     }
 
     @Test
-    public void testFindAllQuestion() throws Exception {
-        MvcResult result = mockMvc.perform(get(rootUrl))
+    public void testGETQuestions() throws Exception {
+        MvcResult result = mockMvc.perform(get(rootUrl).param("withAnswers", "true"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.*", hasSize(2)))
+                .andExpect(jsonPath("$[0]", hasKey("answers")))
                 .andReturn();
     }
 
-    private QuestionDTO createQuestionDTOStub(String title, List<String> options) {
+    private QuestionDTO createQuestionDTOStub(String title, List<String> options, List<String> answers) {
         QuestionDTO dto = new QuestionDTO();
         dto.setTitle(title);
         dto.setOptions(options);
+        dto.setAnswers(answers);
         return dto;
     }
 }

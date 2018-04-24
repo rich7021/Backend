@@ -30,11 +30,11 @@ public class QuestionService {
         return resultDTOs;
     }
 
-    public List<QuestionDTO> listAll() {
+    public List<QuestionDTO> listAll(boolean showAnswers) {
         List<Question> pojos = (List<Question>) questionDAO.findAll();
         List<QuestionDTO> dtos = new ArrayList<>();
         dtos.addAll(
-                pojos.stream().map(pojo -> QuestionDTO.toDTO(pojo)).collect(Collectors.toList())
+                pojos.stream().map(pojo -> QuestionDTO.toDTO(pojo, showAnswers)).collect(Collectors.toList())
         );
         return dtos;
     }

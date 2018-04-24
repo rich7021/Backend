@@ -30,8 +30,8 @@ public class QuestionController {
     }
 
     @GetMapping
-    public List<QuestionDTO> findAllQuestion() {
-        return questionService.listAll();
+    public List<QuestionDTO> findAllQuestion(@RequestParam boolean withAnswers) {
+        return questionService.listAll(withAnswers);
     }
 
 }
