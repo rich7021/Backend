@@ -1,0 +1,4 @@
+CREATE TABLE USER (
+  ID int,
+  NAME VARCHAR
+);
