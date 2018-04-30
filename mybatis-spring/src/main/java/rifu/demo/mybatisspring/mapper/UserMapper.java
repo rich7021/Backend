@@ -5,18 +5,18 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
-import rifu.demo.mybatisspring.entity.User;
+import rifu.demo.mybatisspring.entity.Users;
 
 import java.util.List;
 
 @Mapper
 @Component
 public interface UserMapper {
-    @Select("SELECT * FROM USER")
+    @Select("SELECT * FROM \"USERS\"")
     @Results({
-            @Result(property = "id", column = "id"),
+            @Result(property = "id", column = "ID"),
             @Result(property = "name", column = "NAME")
     })
-    List<User> getAll();
+    List<Users> getAll();
 
 }

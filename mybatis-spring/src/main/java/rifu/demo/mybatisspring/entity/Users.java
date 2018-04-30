@@ -1,6 +1,6 @@
 package rifu.demo.mybatisspring.entity;
 
-public class User {
+public class Users {
     private String id;
     private String name;
 

@@ -1,4 +1,5 @@
-CREATE TABLE USER (
-  ID int,
-  NAME VARCHAR
+
+CREATE TABLE IF NOT EXISTS "USERS" (
+  "ID" int PRIMARY KEY,
+  "NAME" varchar(36)
 );
