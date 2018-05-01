@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-@Qualifier("postgresDataSource")
 @MapperScan(basePackages = "rifu.demo.mybatisspring.mapper")
 public class DataSource1Config {
 
