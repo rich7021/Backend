@@ -1,4 +1,4 @@
-package rifu.demo.mybatisspring.mapper;
+package rifu.demo.mybatisspring.mapper.ds1;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;

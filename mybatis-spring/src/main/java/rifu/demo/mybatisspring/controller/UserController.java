@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rifu.demo.mybatisspring.entity.Users;
-import rifu.demo.mybatisspring.mapper.UserMapper;
+import rifu.demo.mybatisspring.mapper.ds1.UserMapper;
 
 import java.util.List;
 

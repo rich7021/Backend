@@ -1,0 +1,6 @@
+
+CREATE TABLE IF NOT EXISTS "AUTHENTICATION" (
+  "ID" int PRIMARY KEY,
+  "NAME" varchar(36),
+  "DESCRIPTION" text
+);
